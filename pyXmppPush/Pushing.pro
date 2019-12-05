@@ -31,10 +31,10 @@ CONFIG += c++11
 #-----3rd QXMPP-----
 DEFINES += \
         BUILD_SHARED=OFF \
-#        WITH_SPEEX=OFF\
-#        WITH_OPUS=OFF\
-#        WITH_THEORA=OFF\
-#        WITH_VPX=OFF\
+        WITH_SPEEX=OFF\
+        WITH_OPUS=OFF\
+        WITH_THEORA=OFF\
+        WITH_VPX=OFF\
 
 
 INCLUDEPATH += qxmpp \
@@ -46,11 +46,13 @@ INCLUDEPATH += qxmpp \
 
 SOURCES += \
     apis.cpp \
-    pushclient.cpp
+    pushclient.cpp \
+    sip_api.cpp
 
 HEADERS += \
     apis.h \
-    pushclient.h
+    pushclient.h \
+    sip_api.h
 
 
 SOURCES += \

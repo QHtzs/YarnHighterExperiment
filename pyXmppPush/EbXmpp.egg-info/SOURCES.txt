@@ -1,0 +1,7 @@
+EbXmpp.cpp
+setup.py
+EbXmpp.egg-info/PKG-INFO
+EbXmpp.egg-info/SOURCES.txt
+EbXmpp.egg-info/dependency_links.txt
+EbXmpp.egg-info/requires.txt
+EbXmpp.egg-info/top_level.txt

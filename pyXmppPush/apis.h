@@ -1,7 +1,8 @@
 #ifndef APIS_H
 #define APIS_H
 
-#include <vector>
+
+#ifndef MEXPORT
 
 #ifdef XmppLib
 //
@@ -21,6 +22,7 @@
 //
 #endif
 
+#endif
 
 #ifdef __cplusplus
 extern "C"{

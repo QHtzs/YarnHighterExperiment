@@ -31,7 +31,7 @@ class PyQtClientWrap(QObject):
         return self.global_client.pSendMessage(jid, msg)
 
     def send_file(self, jid: bytes, file_path: bytes):
-        return self.global_client.pSendMessage(jid, file_path)
+        return self.global_client.pSendImage(jid, file_path)
 
 
 if __name__ == '__main__':

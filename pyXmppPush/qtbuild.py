@@ -13,8 +13,8 @@ import re
 # 可能找不到rc，需要把相应windows kit bin加入PATh
 # windows下 python3.5+一般是支持msvc2015编译工具
 if platform.platform().lower().__contains__("win"):
-    q_make_home = r"D:\qt\5.12.4\msvc2017_64\bin"
-    q_creator_home = r"D:\qt\Tools\QtCreator\bin"
+    q_make_home = r"D:\Qt\Qt5.12.2\5.12.2\msvc2017_64\bin"
+    q_creator_home = r"D:\Qt\Qt5.12.2\Tools\QtCreator\bin"
     if q_make_home == "":
         warnings.warn("qmake home is not assigned, using current dir")
     q_make = os.path.join(q_make_home, "qmake")

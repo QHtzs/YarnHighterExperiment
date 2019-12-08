@@ -59,20 +59,26 @@ class Monitor(Thread):
                         label_distance = ret["ret"]
                         label = ""
                         for l_s in label_distance:
-                            if l_s[1] > 1.3:  # 超出阈值，不属于收录的任何人，为陌生人
+                            if l_s[1] > 1.2:  # 超出阈值，不属于收录的任何人，为陌生人
                                 bl = bl if bl else 1
                             else:
                                 bl = 2
                             label += "%s:%s " % (l_s[0], l_s[1])
                         self.render.update_image(ret["src"], label)
-                    if bl==1 and (self.noti is not  None):
-                        name = "a%i.png" % i
-                        name = os.path.join(tmp_dir, name)
+                    if bl == 1 and (self.noti is not  None):
+                        name = "im%i_%i.png" % (group, i)
                         i += 1
                         im = ret["src"]
-                        cv2.imwrite(name, im)
+                        if ftp_dirs_map:
+                            name = os.path.join(ftp_dirs_map.get(group, ""), name)
+                            cv2.imwrite(name, im)
+                            os.system("chmod 500 %s" % name)
+                        else:
+                            name = os.path.join(tmp_dir, name)
+                            cv2.imwrite(name, im)
                         self.noti.send_message(udpgroup_and_xmmpusername[group], b"stranger in picture")
-                        self.noti.send_file(udpgroup_and_xmmpusername[group], name.encode())
+                        # 不支持离线文件，不大友好。
+                        # self.noti.send_file(udpgroup_and_xmmpusername[group]+b"/QXmpp", name.encode())
 
 
 def start_monitor(groups, port, need_win=False):
@@ -81,7 +87,7 @@ def start_monitor(groups, port, need_win=False):
     app = QApplication([])
     xmpp = PyQtClientWrap(None)
     xmpp.set_no_verify()
-    xmpp.connect_to_host(b"110@%s" % xmpp_server_host, b"test")
+    xmpp.connect_to_host(b"test1@%s" % xmpp_server_host, b"test")
     if need_win:
         win = NeedShow(None)
         win.show()

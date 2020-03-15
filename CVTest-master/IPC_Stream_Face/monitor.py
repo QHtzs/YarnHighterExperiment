@@ -2,13 +2,14 @@
 
 import cv2
 import numpy as np
+from simple_wrap import start_listen_noblock, get_pic   # 自制python extension 见 UtilModule分支EBUdpSender
 from PyQt5.QtWidgets import QMainWindow, QWidget
 from PyQt5.Qt import QImage,  QPalette, QBrush, QApplication
-from simple_wrap import start_listen_noblock, get_pic   # 自制python extension 见 UtilModule分支EBUdpSender
-from xmpp_client import PyQtClientWrap # 自制python extension,见 UtilModule分支pyXmppPush
+# from xmpp_client import PyQtClientWrap # 自制python extension,见 UtilModule分支pyXmppPush
 from facenet_wraper import Recon
 from threading import Thread
 from config import *
+import platform
 
 
 class NeedShow(QMainWindow):
@@ -32,7 +33,7 @@ class NeedShow(QMainWindow):
 
 
 class Monitor(Thread):
-    def __init__(self, groups, recn: Recon, noti: PyQtClientWrap = None, win: NeedShow = None):
+    def __init__(self, groups, recn: Recon, noti = None, win = None):
         super().__init__()
         self.groups = groups
         self.noti = noti
@@ -73,6 +74,8 @@ class Monitor(Thread):
                             name = os.path.join(ftp_dirs_map.get(group, ""), name)
                             cv2.imwrite(name, im)
                             os.system("chmod 500 %s" % name)
+                        elif platform.platform().lower().__contains__("window"):
+                            pass
                         else:
                             name = os.path.join(tmp_dir, name)
                             cv2.imwrite(name, im)
@@ -85,19 +88,20 @@ def start_monitor(groups, port, need_win=False):
     recn = Recon(model_dir_, path_imagegroup_map)
     start_listen_noblock(port)
     app = QApplication([])
-    xmpp = PyQtClientWrap(None)
-    xmpp.set_no_verify()
-    xmpp.connect_to_host(b"test1@%s" % xmpp_server_host, b"test")
+    # xmpp = PyQtClientWrap(None)
+    # xmpp.set_no_verify()
+    # xmpp.connect_to_host(b"test1@%s" % xmpp_server_host, b"test")
+    xmpp = None
+    win = None
     if need_win:
         win = NeedShow(None)
         win.show()
-    else:
-        win = None
     t = Monitor(groups, recn, xmpp, win)
     t.setDaemon(True)
     t.start()
     app.exec()
-
+    # t.run()
+    
 
 if __name__ == '__main__':
-    start_monitor([10], 9009, True)
+    start_monitor([10, 11], 9009, True)

@@ -23,7 +23,7 @@ int main(int argc, char* argv[])
     auto tmp = std::string(argv[3]);
     int group = 0;
     for(auto &ch: tmp){
-        group += 10*group + ch - 48;
+        group = 10*group + ch - 48;
     }
 
     const char* host = argv[4];

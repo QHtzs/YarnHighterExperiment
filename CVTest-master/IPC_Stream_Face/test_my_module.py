@@ -1,8 +1,8 @@
 # -*- coding:utf-8 -*-
 
 from simple_wrap import start_listen_noblock, get_pic
-import cv2
-import numpy as np
+# import cv2
+# import numpy as np
 from PyQt5.QtWidgets import QMainWindow, QWidget
 from PyQt5.Qt import QImage, QTimer, QPalette, QBrush, QApplication
 
@@ -38,9 +38,10 @@ class MyWindow(QMainWindow):
 
 if __name__ == '__main__':
     src = [
-        "rtsp://admin:HikRASYVE@192.168.0.202/Streaming/Channels/1",
-        "rtmp://media3.sinovision.net:1935/live/livestream",
-        "http://ivi.bupt.edu.cn/hls/cctv6hd.m3u8",
+        "rtsp://admin:HikRASYVE@192.168.1.201/Streaming/Channels/1",
+        "rtsp://admin:HikYSHWQR@192.168.1.202/Streaming/Channels/1",
+       # "rtmp://media3.sinovision.net:1935/live/livestream",
+       # "http://ivi.bupt.edu.cn/hls/cctv6hd.m3u8",
     ]
     q = QApplication([])
     w = MyWindow(None)

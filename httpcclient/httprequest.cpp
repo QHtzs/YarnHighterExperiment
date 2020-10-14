@@ -178,7 +178,8 @@ void HttpRequest::close_socket(tcp_fd fd){
 bool HttpRequest::is_free()
 {
   //强保证
-  return pem.compare_exchange_strong(wanted, false);
+  bool copy = wanted; //确保wanted不会被改变
+  return pem.compare_exchange_strong(copy, false);
 }
 
 void HttpRequest::free_pem(){
